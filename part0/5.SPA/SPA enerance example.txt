@@ -1,0 +1,21 @@
+title SPA enterance example
+
+browser->server: https://fullstack-exampleapp.herokuapp.com/spa
+server->browser: HTML-code
+browser->server: HTTP GET https://fullstack-exampleapp.herokuapp.com/main.css
+server->browser: main.css
+browser->server: HTTP GET https://fullstack-exampleapp.herokuapp.com/spa.js
+server->browser: spa.js
+note left of browser:
+browser starts executing js-code
+that requests JSON data from server 
+and redefines form behaviour when form element is ready
+end note
+browser->server: HTTP GET https://fullstack-exampleapp.herokuapp.com/data.json
+server->browser: array of messages in json format
+note left of browser:
+browser executes the event handler
+that renders notes to display
+end note
+browser->server: HTTP GET Request https://fullstack-exampleapp.herokuapp.com/favicon.ico
+server->browser: Response with status code 404 and HTML contaning error message

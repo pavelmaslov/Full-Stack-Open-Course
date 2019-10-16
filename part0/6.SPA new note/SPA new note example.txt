@@ -1,0 +1,18 @@
+title SPA new note example
+
+note left of browser:
+after click on save button:
+default behaviour is overwritten so no post request
+instead browser gets message from form,
+create new note and saves it in local notes array,
+clears input field,
+redrawing notes to diaplay new note,
+sends a post request with new note in json fromat
+end note
+
+browser->server: HTTP POST Request https://fullstack-exampleapp.herokuapp.com/new_note_spa
+server->browser: JSON with response message
+note left of browser:
+browser log parsed json in console
+({"message":"note created"})
+end note
