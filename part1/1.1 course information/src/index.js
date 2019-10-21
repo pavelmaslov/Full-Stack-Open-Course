@@ -8,11 +8,21 @@ const Header = (props) => {
     )
 };
 
-const Content = (props) => {
+const Part = (props) => {
     return (
         <p>
             {props.partName} {props.exercisesCnt}
         </p>
+    )
+}
+
+const Content = (props) => {
+    return (
+        <div>
+            <Part partName={props.arr[0].name} exercisesCnt={props.arr[0].cnt}/>
+            <Part partName={props.arr[1].name} exercisesCnt={props.arr[1].cnt}/>
+            <Part partName={props.arr[2].name} exercisesCnt={props.arr[2].cnt}/>
+        </div>
     )
 }
 
@@ -32,13 +42,25 @@ const App = () => {
     const exercises2 = 7;
     const part3 = 'State of a component';
     const exercises3 = 14;
+    let contentProps = [
+        {
+            name: part1,
+            cnt: exercises1
+        },
+        {
+            name: part2,
+            cnt: exercises2
+        },
+        {
+            name: part3,
+            cnt: exercises3
+        }
+    ];
 
     return (
         <div>
             <Header courseName={course}/>
-            <Content partName={part1} exercisesCnt={exercises1}/>
-            <Content partName={part2} exercisesCnt={exercises2}/>
-            <Content partName={part3} exercisesCnt={exercises3}/>
+            <Content arr={contentProps}/>
             <Footer exercisesCnt={exercises1 + exercises2 + exercises3}/>
         </div>
     );
