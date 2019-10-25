@@ -35,27 +35,29 @@ const Footer = (props) => {
 }
 
 const App = () => {
-    const course = 'Half Stack application development';
-    let parts = [
-        {
-            name: 'Fundamentals of React',
-            exercises: 10
-        },
-        {
-            name: 'Using props to pass data',
-            exercises: 7
-        },
-        {
-            name: 'State of a component',
-            exercises: 14
-        }
-    ];
+    const course = {
+        name: 'Half Stack application development',
+        parts: [
+            {
+                name: 'Fundamentals of React',
+                exercises: 10
+            },
+            {
+                name: 'Using props to pass data',
+                exercises: 7
+            },
+            {
+                name: 'State of a component',
+                exercises: 14
+            }
+        ]
+    };
 
     return (
         <div>
-            <Header courseName={course}/>
-            <Content arr={parts}/>
-            <Footer exercisesCnt={parts.reduce((acc, part) => acc + part.exercises, 0)}/>
+            <Header courseName={course.name}/>
+            <Content arr={course.parts}/>
+            <Footer exercisesCnt={course.parts.reduce((acc, part) => acc + part.exercises, 0)}/>
         </div>
     );
 }
