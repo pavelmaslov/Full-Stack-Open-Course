@@ -29,18 +29,26 @@ const Statistics = ({scores}) => {
     const good = scores.good;
     const neutral = scores.neutral;
     const bad = scores.bad;
-    return (
-        <div>
-            <Header text="statistics"/>
-            <Display text="good" value={good}/>
-            <Display text="neutral" value={neutral}/>
-            <Display text="bad" value={bad}/>
-            <Display text="all" value={good + neutral + bad}/>
-            <Display text="average" value={(good - bad) / (good + neutral + bad)}/>
-            <Display text="positive" value={good / (good + neutral + bad)} persent={true}/>
-        </div>
-        
-    );
+
+    if (good === 0 && neutral === 0 && bad === 0) {
+        return (
+            <Display text="No feedback given"/>
+        );
+    }else {
+        return (
+            <div>
+                <Header text="statistics"/>
+                <Display text="good" value={good}/>
+                <Display text="neutral" value={neutral}/>
+                <Display text="bad" value={bad}/>
+                <Display text="all" value={good + neutral + bad}/>
+                <Display text="average" value={(good - bad) / (good + neutral + bad)}/>
+                <Display text="positive" value={good / (good + neutral + bad)} persent={true}/>
+            </div>
+            
+        );
+    }
+
 }
 
 const App = () => {
