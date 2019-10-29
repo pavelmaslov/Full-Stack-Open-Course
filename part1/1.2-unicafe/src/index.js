@@ -19,9 +19,14 @@ const Button = ({onClickHandler, text}) => {
 
 const Statistic = ({text, value, persent}) => {
     return (
-        <div>
-            {text} {value} {persent === true ? '%' : ''}
-        </div>
+        <tr>
+            <td>
+                {text}
+            </td>
+            <td>
+                {value} {persent === true ? '%' : ''}
+            </td> 
+        </tr>
     );
 }
 
@@ -38,12 +43,16 @@ const Statistics = ({scores}) => {
         return (
             <div>
                 <Header text="statistics"/>
-                <Statistic text="good" value={good}/>
-                <Statistic text="neutral" value={neutral}/>
-                <Statistic text="bad" value={bad}/>
-                <Statistic text="all" value={good + neutral + bad}/>
-                <Statistic text="average" value={(good - bad) / (good + neutral + bad)}/>
-                <Statistic text="positive" value={good / (good + neutral + bad)} persent={true}/>
+                <table>
+                    <tbody>
+                    <Statistic text="good" value={good}/>
+                    <Statistic text="neutral" value={neutral}/>
+                    <Statistic text="bad" value={bad}/>
+                    <Statistic text="all" value={good + neutral + bad}/>
+                    <Statistic text="average" value={(good - bad) / (good + neutral + bad)}/>
+                    <Statistic text="positive" value={good / (good + neutral + bad)} persent={true}/>
+                    </tbody>
+                </table>
             </div>
             
         );
