@@ -17,7 +17,7 @@ const Button = ({onClickHandler, text}) => {
     );
 }
 
-const Display = ({text, value, persent}) => {
+const Statistic = ({text, value, persent}) => {
     return (
         <div>
             {text} {value} {persent === true ? '%' : ''}
@@ -32,18 +32,18 @@ const Statistics = ({scores}) => {
 
     if (good === 0 && neutral === 0 && bad === 0) {
         return (
-            <Display text="No feedback given"/>
+            <Statistic text="No feedback given"/>
         );
     }else {
         return (
             <div>
                 <Header text="statistics"/>
-                <Display text="good" value={good}/>
-                <Display text="neutral" value={neutral}/>
-                <Display text="bad" value={bad}/>
-                <Display text="all" value={good + neutral + bad}/>
-                <Display text="average" value={(good - bad) / (good + neutral + bad)}/>
-                <Display text="positive" value={good / (good + neutral + bad)} persent={true}/>
+                <Statistic text="good" value={good}/>
+                <Statistic text="neutral" value={neutral}/>
+                <Statistic text="bad" value={bad}/>
+                <Statistic text="all" value={good + neutral + bad}/>
+                <Statistic text="average" value={(good - bad) / (good + neutral + bad)}/>
+                <Statistic text="positive" value={good / (good + neutral + bad)} persent={true}/>
             </div>
             
         );
