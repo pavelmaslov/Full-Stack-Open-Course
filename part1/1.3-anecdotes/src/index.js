@@ -12,6 +12,14 @@ const anecdotes = [
 ];
 // const votes = new Array(anecdotes.length).fill(0);
 
+const Header = ({text}) => {
+    return (
+        <h1>
+            {text}
+        </h1>
+    );
+}
+
 const Button = ({onClickHandler, text}) => {
     return (
         <button onClick={onClickHandler}>
@@ -23,10 +31,11 @@ const Button = ({onClickHandler, text}) => {
 const App = ({anecdotes}) => {
     const [selected, setSelected] = useState(0);
     const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0));
-
+    let mostPopularInd = votes.indexOf(Math.max(...votes));
 
     return (
         <div>
+            <Header text="Anecdote of the day"/>
             <p>{anecdotes[selected]}</p>
             <p>has {votes[selected]} votes</p>
             <p>
@@ -37,6 +46,9 @@ const App = ({anecdotes}) => {
                 }}/>
             <Button text="next anecdote" onClickHandler={()=> setSelected(Math.floor(anecdotes.length * Math.random()))}/>
             </p>
+
+            <Header text="Anecdote with the most votes"/>
+            <p>{anecdotes[mostPopularInd]}</p>
         </div>
     );
 };
