@@ -10,7 +10,7 @@ const anecdotes = [
 `Better train people and risk they leave - than do nothing and risk they stay.`,
 `If something is worth doing once, it's worth building a tool to do it.`
 ];
-
+// const votes = new Array(anecdotes.length).fill(0);
 
 const Button = ({onClickHandler, text}) => {
     return (
@@ -20,13 +20,23 @@ const Button = ({onClickHandler, text}) => {
     );
 }
 
-const App = (props) => {
+const App = ({anecdotes}) => {
     const [selected, setSelected] = useState(0);
+    const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0));
+
 
     return (
         <div>
-            <p>{props.anecdotes[selected]}</p>
-            <p><Button text="next anecdote" onClickHandler={()=> setSelected(Math.floor(anecdotes.length * Math.random()))}/></p>
+            <p>{anecdotes[selected]}</p>
+            <p>has {votes[selected]} votes</p>
+            <p>
+            <Button text="vote" onClickHandler={() => {
+                const newVotes = [...votes];
+                newVotes[selected] += 1;
+                setVotes(newVotes);
+                }}/>
+            <Button text="next anecdote" onClickHandler={()=> setSelected(Math.floor(anecdotes.length * Math.random()))}/>
+            </p>
         </div>
     );
 };
