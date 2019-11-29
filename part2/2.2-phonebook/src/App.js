@@ -7,15 +7,24 @@ const App = () => {
   ]);
   const [ newName, setNewName ] = useState('');
 
+  const nameExists = (name) => {
+    return persons.filter(person => person.name === name).length > 0;
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const newPerson = {
-      name: newName,
-      id: persons.length + 1
-    };
-
-    setNewName('');
-    setPersons([...persons, newPerson]);
+    if (!nameExists(newName)) {
+      const newPerson = {
+        name: newName,
+        id: persons.length + 1
+      };
+  
+      setNewName('');
+      setPersons([...persons, newPerson]);
+    } else {
+      alert(`${newName} is already added to phonebook`);
+    }
+    
   }
 
   const handleInput = (event) => {
