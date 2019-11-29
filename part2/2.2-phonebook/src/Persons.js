@@ -4,7 +4,7 @@ const Persons = ({persons}) => {
     const personsTemplates = persons.map(person => {
         return(
             <p key={person.id}>
-                {person.name}
+                {person.name} {person.number}
             </p>
         );
     });
