@@ -2,7 +2,7 @@ import React from 'react';
 import CountriesList from './CountriesList';
 import CountryInfo from './CountryInfo';
 
-const CountryPlaceholder = ({countries}) => {
+const CountryPlaceholder = ({countries, setSerchString}) => {
     let result;
 
     if (countries.length > 10) {
@@ -12,7 +12,8 @@ const CountryPlaceholder = ({countries}) => {
             </div>
         );
     } else if (countries.length > 1){
-        result = (<CountriesList countries={countries}/>);
+        result =
+                <CountriesList countries={countries} setSerchString={setSerchString}/>;
     } else  if (countries.length === 1) {
         result = <CountryInfo country={countries[0]}/>;
     } else {

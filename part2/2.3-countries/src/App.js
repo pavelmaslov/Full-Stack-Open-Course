@@ -13,7 +13,7 @@ const App = () => {
     axios
       .get(countriesUrl)
       .then(res => {
-        console.log(res.data);
+        // console.log(res.data);
         setCoutries(res.data);
       })
       .catch(error => {
@@ -22,14 +22,15 @@ const App = () => {
   };
   useEffect(initialCountriesLoadHook, []);
 
-  const handleSearchInput = (event) => {
+  const searchInputHandler = (event) => {
     setSerchString(event.target.value);
   }
 
+
   return (
     <div className="App">
-      <Filter searchString={searchString} handleSearchInput={handleSearchInput} />
-      <CountryPlaceholder countries={countriesToShow}/>
+      <Filter searchString={searchString} searchInputHandler={searchInputHandler} />
+      <CountryPlaceholder countries={countriesToShow} setSerchString={setSerchString}/>
     </div>
   );
 }
