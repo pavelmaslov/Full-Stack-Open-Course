@@ -7,7 +7,7 @@ const CountriesList = ({countries, setSerchString}) => {
 
     let countriesNames = countries.map(country => {
         return (
-            <p key={country.alpha3Code} data-name={country.name} onClick={showBtnClickHandler}>
+            <p key={country.alpha3Code} onClick={showBtnClickHandler} data-name={country.name}>
                 {country.name}
                 <button>Show</button>
             </p>
