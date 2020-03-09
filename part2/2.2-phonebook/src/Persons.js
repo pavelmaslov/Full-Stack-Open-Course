@@ -4,8 +4,8 @@ const Persons = ({persons, handleDelete}) => {
 
     const personsTemplates = persons.map(person => {
         return(
-            <p key={person.id} onClick={handleDelete} data-id={person.id} data-name={person.name}>
-                {person.name} {person.number} <button>delete</button>
+            <p key={person.id}>
+                {person.name} {person.number} <button onClick={handleDelete} data-id={person.id} data-name={person.name}>delete</button>
             </p>
         );
     });

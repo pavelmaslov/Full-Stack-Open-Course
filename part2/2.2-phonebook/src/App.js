@@ -21,18 +21,15 @@ const App = () => {
 
   useEffect(initialPersonsLoadHook, []);
 
-  const nameExists = (name) => {
-    return persons.filter(person => person.name === name).length > 0;
-  }
-
   const handlePersonSubmit = (event) => {
     event.preventDefault();
-    if (!nameExists(newName)) {
-      const newPerson = {
-        name: newName,
-        number: newNumber
-      };
-  
+    const newPerson = {
+      name: newName,
+      number: newNumber
+    };
+    const filteredPersons = persons.filter(person => person.name === newName);
+
+    if (filteredPersons.length === 0) {
       PersonsService
         .create(newPerson)
         .then(createdPerson => {
@@ -41,7 +38,15 @@ const App = () => {
           setPersons([...persons, createdPerson]);
         });
     } else {
-      alert(`${newName} is already added to phonebook`);
+      if (window.confirm(`${newName} is already added to phonebook. Do you want to replace it?`)) {
+        newPerson.id = filteredPersons[0].id;
+        PersonsService
+          .update(newPerson)
+          .then(updatedPerson => setPersons(persons.map(person => person.id === updatedPerson.id ? updatedPerson : person)))
+          .catch(err => {
+            console.log(err);
+          });
+      };
     }
   }
 
