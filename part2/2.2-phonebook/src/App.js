@@ -10,9 +10,9 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('');
   const [searchString, setSerchString] = useState('');
   const personsToShow = searchString === '' ? persons : persons.filter(person => person.name.toLowerCase().includes(searchString.toLowerCase()));
+  const personsUrl = 'http://localhost:3001/persons';
 
   const initialPersonsLoadHook = () => {
-    const personsUrl = 'http://localhost:3001/persons';
     axios
       .get(personsUrl)
       .then(res => {
@@ -35,12 +35,22 @@ const App = () => {
       const newPerson = {
         name: newName,
         number: newNumber,
-        id: persons.length + 1
+        // id: persons.length + 1
       };
   
-      setNewName('');
-      setNewNumber('');
-      setPersons([...persons, newPerson]);
+      // setNewName('');
+      // setNewNumber('');
+      // setPersons([...persons, newPerson]);
+
+      axios
+        .post(personsUrl, newPerson)
+        .then(res => {
+          console.log(res.data);
+          setNewName('');
+          setNewNumber('');
+          setPersons([...persons, res.data]);
+        })
+
     } else {
       alert(`${newName} is already added to phonebook`);
     }
