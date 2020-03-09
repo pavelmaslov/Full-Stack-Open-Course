@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import Persons from './Persons';
 import Filter from './Filter';
 import PersonForm from './PersonForm';
+import PersonsService from './services/Persons';
+
 
 const App = () => {
   const [ persons, setPersons] = useState([]);
@@ -10,18 +11,13 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('');
   const [searchString, setSerchString] = useState('');
   const personsToShow = searchString === '' ? persons : persons.filter(person => person.name.toLowerCase().includes(searchString.toLowerCase()));
-  const personsUrl = 'http://localhost:3001/persons';
 
   const initialPersonsLoadHook = () => {
-    axios
-      .get(personsUrl)
-      .then(res => {
-        setPersons(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      })
-  }
+    PersonsService
+      .getAll()
+      .then(persons => setPersons(persons))
+      .catch(err => console.log(err));
+  };
 
   useEffect(initialPersonsLoadHook, []);
 
@@ -35,22 +31,16 @@ const App = () => {
       const newPerson = {
         name: newName,
         number: newNumber,
-        // id: persons.length + 1
       };
   
-      // setNewName('');
-      // setNewNumber('');
-      // setPersons([...persons, newPerson]);
 
-      axios
-        .post(personsUrl, newPerson)
-        .then(res => {
-          console.log(res.data);
+      PersonsService
+        .create(newPerson)
+        .then(createdPerson => {
           setNewName('');
           setNewNumber('');
-          setPersons([...persons, res.data]);
-        })
-
+          setPersons([...persons, createdPerson]);
+        });
     } else {
       alert(`${newName} is already added to phonebook`);
     }
