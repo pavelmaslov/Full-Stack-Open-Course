@@ -6,7 +6,7 @@ import PersonsService from './services/Persons';
 
 
 const App = () => {
-  const [ persons, setPersons] = useState([]);
+  const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [searchString, setSerchString] = useState('');
@@ -25,15 +25,14 @@ const App = () => {
     return persons.filter(person => person.name === name).length > 0;
   }
 
-  const handleSubmit = (event) => {
+  const handlePersonSubmit = (event) => {
     event.preventDefault();
     if (!nameExists(newName)) {
       const newPerson = {
         name: newName,
-        number: newNumber,
+        number: newNumber
       };
   
-
       PersonsService
         .create(newPerson)
         .then(createdPerson => {
@@ -44,7 +43,20 @@ const App = () => {
     } else {
       alert(`${newName} is already added to phonebook`);
     }
-    
+  }
+
+  const handlePersonDelete = (event) => {
+    const id = parseInt(event.currentTarget.dataset.id, 10);
+    const name = event.currentTarget.dataset.name;
+    if (window.confirm(`Do you really want to delete ${name}`)) {
+      PersonsService
+        .deletePerson(id)
+        .then(data => 
+          {
+            setPersons(persons.filter(person => person.id !== id))
+          })
+        .catch(err=> console.log(err));
+    }
   }
 
   const handleNameInput = (event) => {
@@ -65,9 +77,9 @@ const App = () => {
       <h2>Phonebook</h2>
       <Filter searchString={searchString} handleSearchInput={handleSearchInput}/>
       <h2>Add new contact</h2>
-      <PersonForm handleSubmit={handleSubmit} handleNameInput={handleNameInput} handleNumberInput={handleNumberInput} newName={newName} newNumber={newNumber}/>
+      <PersonForm handleSubmit={handlePersonSubmit} handleNameInput={handleNameInput} handleNumberInput={handleNumberInput} newName={newName} newNumber={newNumber}/>
       <h2>Numbers</h2>
-      <Persons persons={personsToShow}/>
+      <Persons persons={personsToShow} handleDelete={handlePersonDelete}/>
     </div>
   );
 }
